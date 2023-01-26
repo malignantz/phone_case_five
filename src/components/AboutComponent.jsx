@@ -1,7 +1,7 @@
 function AboutComponent() {
   return (
     <>
-    <h2>About PhoneCaseFive.com</h2>
+    <h2>About</h2>
     <p>
         Looking for a used, $5 phone case with FREE SHIPPING? You are in the right place.
     </p>

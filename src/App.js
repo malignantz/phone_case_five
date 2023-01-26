@@ -7,6 +7,7 @@ import {Route, Routes} from 'react-router';
 
 import './App.css';
 import { useState } from 'react';
+import ListPhoneComponent from './components/ListPhoneComponent.jsx';
 
 function App() {
   let indexer = function() {
@@ -39,6 +40,7 @@ function App() {
     <Route path="/" element={<PhoneCaseListComponent getIndex={getIndex} handleAdd={handleAdd} data={data}/>} />
     <Route path="/cart" element={<CartComponent items={cart} />} />
     <Route path='/about' element={<AboutComponent />} />
+    <Route path="/list" element={<ListPhoneComponent />} />
    </Routes>
 
   <Footer />
