@@ -2,17 +2,19 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-function PhoneCaseCardComponent({data}) {
+function PhoneCaseCardComponent({data, handleAdd}) {
 
     return (
-    <Card>
-        <Card.Img variant="top" src={data.img} />
-        <Card.Body>
-            <Card.Title>{data.title}</Card.Title>
+    <Card style={{width: '14rem', marginLeft: 'auto', marginRight: 'auto'}}>
+
+        <Card.Body className="text-center">
+            <Card.Title>{data.phoneName}</Card.Title>
+            <Card.Img variant="bottom" src={data.img} />
             <Card.Text>
             {data.desc}
             </Card.Text>
-            <Button variant="primary">Add to Cart</Button>
+
+            <Button variant="primary" onClick={() => handleAdd(data.phoneName)}>Add to Cart</Button>
         </Card.Body>
     </Card>
   )
