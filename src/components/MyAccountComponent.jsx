@@ -1,25 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import db from "./../lib/db.js";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function MyAccountComponent({ user }) {
   const { getAccessTokenSilently } = useAuth0();
-  const [token, setToken] = useState("");
 
   useEffect(() => {
     async function getToken() {
       const accessToken = await getAccessTokenSilently();
-      if (accessToken) {
-        setToken(accessToken);
-      }
+      const config = {
+        method: "POST",
+        //cors: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          body: JSON.stringify({ some: "data" }),
+        },
+      };
+      const resp = await fetch(
+        "https://5nxfj428tj.execute-api.us-east-1.amazonaws.com/postCase",
+        config
+      );
+      const data = await resp.json();
+      console.log(data, user);
     }
     getToken();
 
-    async function getUser() {
-      const resp = await fetch("https://reqres.in/api/users/2");
-      const data = await resp.json();
-      console.log(data);
-    }
+    async function getUser() {}
     getUser();
   }, [getAccessTokenSilently]);
 
@@ -32,7 +39,6 @@ function MyAccountComponent({ user }) {
         {db[user.email] &&
           db[user.email].map((listing) => <li key={listing}>{listing}</li>)}
       </ul>
-      <p>{token}</p>
     </>
   );
 }
