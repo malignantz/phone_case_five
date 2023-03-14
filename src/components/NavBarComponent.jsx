@@ -1,11 +1,13 @@
+import { NavLink, useNavigate } from "react-router-dom";
+
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { NavLink } from "react-router-dom";
 
-function NavBarComponent({ itemCount }) {
+function NavBarComponent({ itemCount, isAuthenticated, handleLogin, logout }) {
+  let navigate = useNavigate();
+
   return (
     <>
       <Navbar bg="light">
@@ -27,8 +29,19 @@ function NavBarComponent({ itemCount }) {
             </Nav.Link>
           </Nav>
           <div>
-            <Button variant="success">Sign Up!</Button>{" "}
-            <Button variant="primary">Login</Button>
+            <Button
+              variant={isAuthenticated ? "primary" : "success"}
+              onClick={() =>
+                isAuthenticated ? navigate("/myaccount") : handleLogin()
+              }
+            >
+              {isAuthenticated ? "My Account" : "Sign Up / Login"}
+            </Button>{" "}
+            {isAuthenticated && (
+              <Button variant="secondary" onClick={() => logout()}>
+                Logout
+              </Button>
+            )}
           </div>
         </Container>
       </Navbar>

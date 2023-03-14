@@ -8,8 +8,6 @@ function MyAccountComponent({ user }) {
   useEffect(() => {
     async function getToken() {
       const accessToken = await getAccessTokenSilently();
-      //console.log(accessToken.includes(".."));
-      // let at = accessToken.replace("..", "");
       const config = {
         method: "POST",
         //cors: "no-cors",
@@ -19,13 +17,12 @@ function MyAccountComponent({ user }) {
           body: JSON.stringify({ some: "data" }),
         },
       };
-      //console.log("accessToken:", accessToken);
       const resp = await fetch(
         "https://5nxfj428tj.execute-api.us-east-1.amazonaws.com/postCase",
         config
       );
       const data = await resp.json();
-      console.log(data);
+      console.log(data, user);
     }
     getToken();
 
