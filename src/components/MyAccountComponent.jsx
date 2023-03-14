@@ -34,7 +34,11 @@ function MyAccountComponent({ user }) {
     <>
       <h2>{user.given_name}'s Account</h2>
 
-      <img src={user.picture} alt="Profile avatar" />
+      <img
+        src={user.picture}
+        referrerPolicy="no-referrer"
+        alt="Profile avatar"
+      />
       <ul>
         {db[user.email] &&
           db[user.email].map((listing) => <li key={listing}>{listing}</li>)}

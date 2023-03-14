@@ -3,23 +3,33 @@ import phoneData from "./../lib/phoneData.js";
 import { useState } from "react";
 
 function ListPhoneComponent() {
-  const [models, setModels] = useState([]);
+  //const [models, setModels] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  let models = [];
 
   function selectCompany(co) {
-    setModels(phoneData[co]);
+    //setModels(phoneData[co]);
+    setSelectedCompany(co);
+    //models = phoneData[co];
+    //console.log(models);
   }
 
   function populateModelsDropdown() {
     return (
       <Dropdown>
         <Dropdown.Toggle variant="primary" id="dropdown-basic">
-          Select Phone Model
+          {selectedModel === "" ? "Select Phone Model" : selectedModel}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          {models.length === 0 ? (
+          {selectedCompany === "" ? (
             <Dropdown.Item>Select Manufacturer</Dropdown.Item>
           ) : (
-            models.map((m) => <Dropdown.Item key={m}>{m}</Dropdown.Item>)
+            phoneData[selectedCompany].map((m) => (
+              <Dropdown.Item key={m} onClick={() => setSelectedModel(m)}>
+                {m}
+              </Dropdown.Item>
+            ))
           )}
         </Dropdown.Menu>
       </Dropdown>
@@ -31,7 +41,7 @@ function ListPhoneComponent() {
       <h2>List your Phone!</h2>
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Select Manufacturer
+          {selectedCompany === "" ? "Select Manufacturer" : selectedCompany}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
